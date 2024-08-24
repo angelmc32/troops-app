@@ -1,4 +1,4 @@
-import React, { SVGProps } from 'react'
+import React, { type SVGProps } from 'react'
 import Image from 'next/image'
 
 const navigation = [
@@ -66,7 +66,7 @@ export default function Footer({
   isHomePage?: boolean
 }) {
   return (
-    <footer className="w-full bg-background">
+    <footer className="bg-background w-full">
       <div className="mx-auto max-w-7xl px-6 py-8 md:flex md:items-center md:justify-between md:px-8 lg:px-12 xl:px-16">
         <div className="flex items-center justify-center gap-x-8 md:order-2">
           {navigation.map((item) => (
@@ -75,7 +75,7 @@ export default function Footer({
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-primary lg:text-lg"
+                className="hover:text-primary text-gray-500 lg:text-lg"
               >
                 <span className="sr-only">{item.name}</span>
                 <item.icon
@@ -97,7 +97,7 @@ export default function Footer({
                 className="h-10 w-10 transition duration-300 ease-in-out hover:scale-90"
               />
             </div>
-            <p className="text-center text-lg text-foreground">&copy; 2024</p>
+            <p className="text-foreground text-center text-lg">&copy; 2024</p>
           </div>
         )}
       </div>
