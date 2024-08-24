@@ -1,11 +1,10 @@
-import AuthButton from '@/components/buttons/authButton'
-import PageWithNavbar from '@/components/layout/page'
+import PageWithAppbar from '@/components/layout/pageWithAppbar'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 export default function About() {
   return (
-    <PageWithNavbar>
+    <PageWithAppbar>
       <div className="page gap-y-8 text-center">
         <h2>About</h2>
         <Link href="/">
@@ -14,6 +13,6 @@ export default function About() {
           </Button>
         </Link>
       </div>
-    </PageWithNavbar>
+    </PageWithAppbar>
   )
 }
