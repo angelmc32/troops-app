@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { HydrateClient } from '@/trpc/server'
 import Navbar from './navbar'
 import Footer from './footer'
 
@@ -9,11 +11,11 @@ export interface NavbarProps {
   navTitle?: string
 }
 
-const PageWithNavbar: React.FC<NavbarProps & { children: React.ReactNode }> = ({
+const PageWithAppbar: React.FC<NavbarProps & { children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <>
+    <HydrateClient>
       <Navbar />
       <main
         className={`min-h-[calc(100vh-64px)] top-[${NAVBAR_HEIGHT}] flex w-full flex-col items-center overflow-x-hidden`}
@@ -21,8 +23,8 @@ const PageWithNavbar: React.FC<NavbarProps & { children: React.ReactNode }> = ({
         {children}
       </main>
       <Footer />
-    </>
+    </HydrateClient>
   )
 }
 
-export default PageWithNavbar
+export default PageWithAppbar

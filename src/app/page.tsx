@@ -1,9 +1,9 @@
 import AuthButton from '@/components/buttons/authButton'
-import PageWithNavbar from '@/components/layout/page'
+import PageWithAppbar from '@/components/layout/pageWithAppbar'
 
 export default function Home() {
   return (
-    <PageWithNavbar>
+    <PageWithAppbar>
       <div className="page gap-y-8 text-center">
         <h1>
           a third space for <br />
@@ -11,6 +11,6 @@ export default function Home() {
         </h1>
         <AuthButton size="lg" />
       </div>
-    </PageWithNavbar>
+    </PageWithAppbar>
   )
 }
