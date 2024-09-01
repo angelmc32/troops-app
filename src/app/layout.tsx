@@ -3,9 +3,9 @@ import '@/styles/globals.css'
 import { type Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import { TRPCReactProvider } from '@/trpc/react'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
+import OnchainProvider from '@/providers/onchainProvider'
 
 export const metadata: Metadata = {
   title: 'troops',
@@ -25,14 +25,14 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'bg-background min-h-screen font-sans antialiased',
+          'min-h-screen bg-background font-sans antialiased',
           fontSans.variable,
         )}
       >
-        <TRPCReactProvider>
+        <OnchainProvider>
           {children}
           <Toaster richColors />
-        </TRPCReactProvider>
+        </OnchainProvider>
       </body>
     </html>
   )

@@ -13,10 +13,10 @@ export type MenuItemType = {
 }
 
 const MENU_ITEMS: MenuItemType[] = [
-  // { displayText: 'Home', href: '/', isMobileOnly: true },
-  { displayText: 'Features', href: '/features', isMobileOnly: false },
-  { displayText: 'How it works', href: '/how-it-works', isMobileOnly: false },
-  { displayText: 'About', href: '/about', isMobileOnly: false },
+  { displayText: 'home', href: '/', isMobileOnly: true },
+  { displayText: 'features', href: '/features', isMobileOnly: false },
+  { displayText: 'how it works', href: '/how-it-works', isMobileOnly: false },
+  { displayText: 'about', href: '/about', isMobileOnly: false },
 ]
 
 export default function Navbar() {
@@ -29,12 +29,12 @@ export default function Navbar() {
           <Link className="flex w-16 items-center" href="/">
             <Image
               src="/icons/icon-192x192.png"
-              alt="Una pequeña fruta, cortesía de Frutero Club"
+              alt="troopie: an animated blob that takes the shape of the communities it is a part of"
               width={512}
               height={512}
               className="h-10 w-10 transition duration-300 ease-in-out hover:scale-90"
             />
-            <span className="sr-only">Frutero Club</span>
+            <span className="sr-only">troops</span>
           </Link>
         </div>
         <div className="z-10 col-span-3 flex items-center justify-center">
