@@ -1,16 +1,23 @@
 'use client'
 
+import { type Dispatch, type SetStateAction } from 'react'
+import { useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
-import { useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core'
+import { useRouter } from 'next/navigation'
 
 type AuthButtonProps = {
   size?: 'default' | 'sm' | 'lg' | 'icon' | null | undefined
+  setIsMenuOpen?: Dispatch<SetStateAction<boolean>>
 }
 
-export default function AuthButton({ size = 'default' }: AuthButtonProps) {
+export default function AuthButton({
+  size = 'default',
+  setIsMenuOpen,
+}: AuthButtonProps) {
   const { handleLogOut, setShowAuthFlow } = useDynamicContext()
   const isLoggedIn = useIsLoggedIn()
+  const router = useRouter()
 
   function login() {
     if (!isLoggedIn) {
@@ -21,6 +28,8 @@ export default function AuthButton({ size = 'default' }: AuthButtonProps) {
   }
   async function logout() {
     await handleLogOut()
+    router.push('/')
+    setIsMenuOpen?.(false)
   }
 
   return (
