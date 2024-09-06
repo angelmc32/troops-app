@@ -2,11 +2,11 @@ import PageWithAppbar from '@/components/layout/pageWithAppbar'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-export default function Features() {
+export default function NewUser() {
   return (
     <PageWithAppbar>
       <div className="page gap-y-8 text-center">
-        <h2>features</h2>
+        <h2>new user</h2>
         <Link href="/">
           <Button className={`mt-6 h-12 text-lg md:mt-8 lg:mt-8 xl:mt-12`}>
             back

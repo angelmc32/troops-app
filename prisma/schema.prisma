@@ -11,13 +11,13 @@ datasource db {
 }
 
 model User {
-    id                      String                  @id @default(cuid())
+    id                      String                  @id @default(uuid())
     username                String                  @unique
     appWallet               String                  @unique
-    eoaWallet               String                  @unique
+    eoaWallet               String?                 @unique
     walletProviderId        String                  @unique
-    email                   String?                 @unique
-    displayName             String
+    email                   String                  @unique
+    displayName             String                  // dynamic.xyz "alias"
     bio                     String?
     avatarUrl               String?
     bannerUrl               String?
