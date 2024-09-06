@@ -2,13 +2,13 @@ import { createTRPCRouter, publicProcedure } from '@/server/api/trpc'
 import { TRPCError } from '@trpc/server'
 
 import { z } from 'zod'
-import { isAddress, zeroAddress } from 'viem'
+import { isAddress } from 'viem'
 
 export const usersRouter = createTRPCRouter({
   getById: publicProcedure
     .input(
       z.object({
-        id: z.string().cuid(),
+        id: z.string().uuid(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -38,12 +38,6 @@ export const usersRouter = createTRPCRouter({
         bio: z.string().max(256).optional(),
         displayName: z.string().min(1).max(64),
         email: z.union([z.literal(''), z.string().email()]),
-        eoaWallet: z
-          .string()
-          .refine((value) => isAddress(value), {
-            message: 'eoaWallet: not a valid Ethereum address',
-          })
-          .optional(),
         username: z
           .string()
           .regex(
@@ -62,9 +56,6 @@ export const usersRouter = createTRPCRouter({
               email: input.email,
             },
             {
-              eoaWallet: input.eoaWallet,
-            },
-            {
               username: input.username,
             },
           ],
@@ -78,6 +69,7 @@ export const usersRouter = createTRPCRouter({
             message: 'username not available, please try another one',
           })
         } else {
+          console.log(existingUser)
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: 'user already exists',
@@ -93,7 +85,7 @@ export const usersRouter = createTRPCRouter({
           bio: input.bio,
           displayName: input.displayName,
           email: input.email,
-          eoaWallet: input.eoaWallet?.toLowerCase() ?? zeroAddress,
+          id: input.walletProviderId,
           username: input.username,
           walletProviderId: input.walletProviderId,
         },
@@ -109,7 +101,7 @@ export const usersRouter = createTRPCRouter({
         bio: z.string().max(256).optional(),
         displayName: z.string().min(1).max(64),
         email: z.union([z.literal(''), z.string().email()]),
-        id: z.string().cuid(),
+        id: z.string().uuid(),
         username: z
           .string()
           .regex(
@@ -139,7 +131,7 @@ export const usersRouter = createTRPCRouter({
   delete: publicProcedure
     .input(
       z.object({
-        id: z.string().cuid(),
+        id: z.string().uuid(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
