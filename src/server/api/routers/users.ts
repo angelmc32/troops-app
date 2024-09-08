@@ -17,12 +17,6 @@ export const usersRouter = createTRPCRouter({
           id: input.id,
         },
       })
-      if (!user) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: 'user does not exist',
-        })
-      }
 
       return user
     }),

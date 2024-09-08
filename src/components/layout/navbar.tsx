@@ -2,8 +2,10 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import MobileMenu from './mobileMenu'
+import { useIsLoggedIn } from '@dynamic-labs/sdk-react-core'
 import { usePathname } from 'next/navigation'
+
+import MobileMenu from './mobileMenu'
 import AuthButton from '@/components/buttons/authButton'
 
 export type MenuItemType = {
@@ -19,8 +21,16 @@ const MENU_ITEMS: MenuItemType[] = [
   { displayText: 'about', href: '/about', isMobileOnly: false },
 ]
 
+const AUTH_MENU_ITEMS: MenuItemType[] = [
+  { displayText: 'home', href: '/', isMobileOnly: true },
+  { displayText: 'bounties', href: '/bounties', isMobileOnly: false },
+  { displayText: 'projects', href: '/projects', isMobileOnly: false },
+  { displayText: 'profile', href: '/profile', isMobileOnly: false },
+]
+
 export default function Navbar() {
   const pathname = usePathname()
+  const isLoggedIn = useIsLoggedIn()
 
   return (
     <header className="sticky top-0 h-20 w-full bg-black">
@@ -39,8 +49,9 @@ export default function Navbar() {
         </div>
         <div className="z-10 col-span-3 flex items-center justify-center">
           <nav className="hidden gap-6 lg:flex">
-            {MENU_ITEMS.filter((menuItem) => !menuItem.isMobileOnly).map(
-              (menuItem, index) => (
+            {(isLoggedIn ? AUTH_MENU_ITEMS : MENU_ITEMS)
+              .filter((menuItem) => !menuItem.isMobileOnly)
+              .map((menuItem, index) => (
                 <Link
                   key={`${menuItem.displayText}-menuItem-${index}`}
                   className={`inline-flex items-center justify-center px-4 py-2 text-lg font-medium text-white transition-colors hover:text-primary focus:text-primary focus:outline-none ${
@@ -51,8 +62,7 @@ export default function Navbar() {
                 >
                   {menuItem.displayText}
                 </Link>
-              ),
-            )}
+              ))}
           </nav>
         </div>
         <div className="hidden lg:flex lg:justify-end">
