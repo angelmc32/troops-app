@@ -29,7 +29,7 @@ export default function OnchainProvider({ children }: { children: ReactNode }) {
     handleVerifiedUser: async ({ user }: { user: UserProfile }) => {
       console.log('handleBeforeAuth was called', user)
 
-      router.push('/profile')
+      router.push('/dashboard')
       // if (!user.userId) {
       //   toast.error('something went wrong, please try again later')
       // }

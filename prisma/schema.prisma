@@ -9,7 +9,6 @@ datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
 }
-
 model User {
     id                      String                  @id @default(uuid())
     username                String                  @unique
@@ -21,9 +20,68 @@ model User {
     bio                     String?
     avatarUrl               String?
     bannerUrl               String?
+    
+    profile                 Profile?
+    projects                Project[]
 
     createdAt               DateTime                @default(now())
     updatedAt               DateTime                @updatedAt
 
     @@index([appWallet, displayName, email, eoaWallet, username])
+}
+
+
+model Profile {
+  id                        String                  @id @default(cuid())
+  firstName                 String
+  lastName                  String?
+  cityRegion                String
+  country                   String
+  primaryRole               String?
+  professionalProfile       String?
+  isStudent                 Boolean                 @default(false)
+  website                   String?
+  githubUsername            String?
+  farcasterId               Int?
+  farcasterUsername         String?
+  xUsername                 String?
+  telegramUsername          String?
+  discordUsername           String?
+
+  user                      User                    @relation(fields: [userId], references: [id])
+  userId                    String                  @unique
+  
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+}
+
+model Project {
+  id                        String                  @id @default(cuid())
+  wallet                    String?                 @unique
+  name                      String                  @unique
+  email                     String?                 @unique
+  website                   String?                 @unique
+  idea                      String
+  description               String?
+  avatarUrl                 String?
+  bannerUrl                 String?
+  category                  String
+  currentStage              String                  @default("idea")
+  repositoryUrl             String?
+  heroVideoUrl              String?
+  demoUrl                   String?
+  supportNeeded             String[]
+  socialMediaLinks          Json?
+  importantLinks            Json?
+  tags                      String[]
+  isApproved                Boolean                 @default(false)
+  isRegistered              Boolean                 @default(false)  // Whether the project is registered as a legal entity
+
+  owner                     User                    @relation(fields: [ownerId], references: [id])
+  ownerId                   String
+
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+
+  @@index([wallet, name, email, ownerId, category]) 
 }
